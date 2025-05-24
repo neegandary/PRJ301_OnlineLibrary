@@ -1,580 +1,570 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Online Library</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
     <style>
-        .book-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-        }
-        .search-box:focus {
-            outline: none;
-            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.3);
-        }
-        .category-chip:hover {
-            background-color: #3b82f6;
-            color: white;
-        }
-        .smooth-transition {
-            transition: all 0.3s ease;
-        }
-        .hero-gradient {
-            background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
-        }
-        .blur-load {
-            background-size: cover;
-            background-position: center;
-        }
-        .blur-load.loaded > img {
-            opacity: 1;
-        }
-        .blur-load > img {
-            opacity: 0;
-            transition: opacity 200ms ease-in-out;
-        }
+      .book-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+      }
+      .search-box:focus {
+        outline: none;
+        box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.3);
+      }
+      .category-chip:hover {
+        background-color: #3b82f6;
+        color: white;
+      }
+      .smooth-transition {
+        transition: all 0.3s ease;
+      }
+      .hero-gradient {
+        background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+      }
+      .blur-load {
+        background-size: cover;
+        background-position: center;
+      }
+      .blur-load.loaded > img {
+        opacity: 1;
+      }
+      .blur-load > img {
+        opacity: 0;
+        transition: opacity 200ms ease-in-out;
+      }
     </style>
-</head>
-<body class="bg-gray-50 font-sans">
+  </head>
+  <body class="bg-gray-50 font-sans">
     <!-- Navigation -->
     <nav class="bg-white shadow-md sticky top-0 z-50">
-        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
-            <div class="flex items-center space-x-2">
-                <i class="fas fa-book-open text-blue-600 text-2xl"></i>
-                <a href="#" class="text-2xl font-bold text-blue-600">BookNest</a>
-            </div>
-            <div class="hidden md:flex space-x-6">
-                <a href="#" class="text-gray-700 hover:text-blue-600 font-medium">Home</a>
-                <a href="#books" class="text-gray-700 hover:text-blue-600 font-medium">Books</a>
-                <a href="#categories" class="text-gray-700 hover:text-blue-600 font-medium">Categories</a>
-                <a href="#about" class="text-gray-700 hover:text-blue-600 font-medium">About</a>
-            </div>
-            <div class="flex items-center space-x-4">
-                <button id="search-btn" class="text-gray-600 hover:text-blue-600">
-                    <i class="fas fa-search"></i>
-                </button>
-                <a href="#" class="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition">
-                    Sign In
-                </a>
-                <button id="mobile-menu-btn" class="md:hidden text-gray-600">
-                    <i class="fas fa-bars text-xl"></i>
-                </button>
-            </div>
+      <div
+        class="container mx-auto px-4 py-3 flex justify-between items-center"
+      >
+        <div class="flex items-center space-x-2">
+          <i class="fas fa-book-open text-blue-600 text-2xl"></i>
+          <a href="#" class="text-2xl font-bold text-blue-600"
+            >Online Library</a
+          >
         </div>
-        
-        <!-- Mobile Menu -->
-        <div id="mobile-menu" class="hidden md:hidden bg-white py-2 px-4 shadow-lg">
-            <a href="#" class="block py-2 text-gray-700 hover:text-blue-600">Home</a>
-            <a href="#books" class="block py-2 text-gray-700 hover:text-blue-600">Books</a>
-            <a href="#categories" class="block py-2 text-gray-700 hover:text-blue-600">Categories</a>
-            <a href="#about" class="block py-2 text-gray-700 hover:text-blue-600">About</a>
+        <div class="hidden md:flex space-x-6">
+          <a href="#" class="text-gray-700 hover:text-blue-600 font-medium"
+            >Home</a
+          >
+          <a href="#books" class="text-gray-700 hover:text-blue-600 font-medium"
+            >Books</a
+          >
+          <a href="#about" class="text-gray-700 hover:text-blue-600 font-medium"
+            >About</a
+          >
         </div>
-        
-        <!-- Search Bar -->
-        <div id="search-bar" class="hidden container mx-auto px-4 py-3 bg-white border-t">
-            <div class="relative">
-                <input type="text" placeholder="Search for books, authors, or categories..." 
-                       class="w-full px-4 py-2 border rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
-                <button class="absolute right-3 top-2 text-gray-500 hover:text-blue-600">
-                    <i class="fas fa-search"></i>
-                </button>
-            </div>
+        <div class="flex items-center space-x-4">
+          <button id="search-btn" class="text-gray-600 hover:text-blue-600">
+            <i class="fas fa-search"></i>
+          </button>
+          <a
+            href="Account.html"
+            class="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition"
+          >
+            Sign In
+          </a>
+          <button id="mobile-menu-btn" class="md:hidden text-gray-600">
+            <i class="fas fa-bars text-xl"></i>
+          </button>
         </div>
+      </div>
+
+      <!-- Mobile Menu -->
+      <div
+        id="mobile-menu"
+        class="hidden md:hidden bg-white py-2 px-4 shadow-lg"
+      >
+        <a href="#" class="block py-2 text-gray-700 hover:text-blue-600"
+          >Home</a
+        >
+        <a href="#books" class="block py-2 text-gray-700 hover:text-blue-600"
+          >Books</a
+        >
+        <a href="#about" class="block py-2 text-gray-700 hover:text-blue-600"
+          >About</a
+        >
+      </div>
+
+      <!-- Search Bar -->
+      <div
+        id="search-bar"
+        class="hidden container mx-auto px-4 py-3 bg-white border-t"
+      >
+        <div class="relative">
+          <input
+            type="text"
+            placeholder="Search for books, authors, or categories..."
+            class="w-full px-4 py-2 border rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+          />
+          <button
+            class="absolute right-3 top-2 text-gray-500 hover:text-blue-600"
+          >
+            <i class="fas fa-search"></i>
+          </button>
+        </div>
+      </div>
     </nav>
 
     <!-- Hero Section -->
     <section class="hero-gradient text-white py-16">
-        <div class="container mx-auto px-4 flex flex-col md:flex-row items-center">
-            <div class="md:w-1/2 mb-10 md:mb-0">
-                <h1 class="text-4xl md:text-5xl font-bold mb-4">Discover Your Next Favorite Book</h1>
-                <p class="text-xl mb-6 opacity-90">Access thousands of books from classic literature to modern bestsellers. Read anytime, anywhere.</p>
-                <div class="flex flex-col sm:flex-row space-y-3 sm:space-y-0 sm:space-x-4">
-                    <a href="#books" class="bg-white text-blue-600 px-6 py-3 rounded-md font-medium text-center hover:bg-gray-100 transition">
-                        Browse Collection
-                    </a>
-                    <a href="#" class="border border-white text-white px-6 py-3 rounded-md font-medium text-center hover:bg-white hover:bg-opacity-10 transition">
-                        Join Now
-                    </a>
-                </div>
-            </div>
-            <div class="md:w-1/2 flex justify-center">
-                <div class="relative w-full max-w-md">
-                    <div class="blur-load" style="background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI1MDAiIGhlaWdodD0iNTAwIiB2aWV3Qm94PSIwIDAgNTAwIDUwMCI+PHJlY3Qgd2lkdGg9IjUwMCIgaGVpZ2h0PSI1MDAiIGZpbGw9IiNlNWU1ZTUiLz48L3N2Zz4=')">
-                        <img src="https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80" 
-                             alt="Books on shelf" 
-                             class="w-full h-auto rounded-lg shadow-xl" 
-                             loading="lazy">
-                    </div>
-                    <div class="absolute -bottom-6 -right-6 bg-white p-4 rounded-lg shadow-lg hidden md:block">
-                        <div class="flex items-center">
-                            <div class="bg-yellow-400 p-2 rounded-full mr-3">
-                                <i class="fas fa-star text-white"></i>
-                            </div>
-                            <div>
-                                <p class="font-bold text-gray-800">4.8/5 Rating</p>
-                                <p class="text-sm text-gray-600">From 10,000+ readers</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+      <div
+        class="container mx-auto px-4 flex flex-col md:flex-row items-center"
+      >
+        <div class="md:w-1/2 mb-10 md:mb-0">
+          <h1 class="text-4xl md:text-5xl font-bold mb-4">
+            Discover Your Next Favorite Book
+          </h1>
+          <p class="text-xl mb-6 opacity-90">
+            Access thousands of books from classic literature to modern
+            bestsellers. Read anytime, anywhere.
+          </p>
+          <div
+            class="flex flex-col sm:flex-row space-y-3 sm:space-y-0 sm:space-x-4"
+          >
+            <a
+              href="#books"
+              class="bg-white text-blue-600 px-6 py-3 rounded-md font-medium text-center hover:bg-gray-100 transition"
+            >
+              Browse Collection
+            </a>
+            <a
+              href="Account.html"
+              class="border border-white text-white px-6 py-3 rounded-md font-medium text-center hover:bg-white hover:bg-opacity-10 transition"
+            >
+              Join Now
+            </a>
+          </div>
         </div>
+        <div class="md:w-1/2 flex justify-center">
+          <div class="relative w-full max-w-md">
+            <div
+              class="blur-load"
+              style="
+                background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI1MDAiIGhlaWdodD0iNTAwIiB2aWV3Qm94PSIwIDAgNTAwIDUwMCI+PHJlY3Qgd2lkdGg9IjUwMCIgaGVpZ2h0PSI1MDAiIGZpbGw9IiNlNWU1ZTUiLz48L3N2Zz4=');
+              "
+            >
+              <img
+                src="https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80"
+                alt="Books on shelf"
+                class="w-full h-auto rounded-lg shadow-xl"
+                loading="lazy"
+              />
+            </div>
+            <div
+              class="absolute -bottom-6 -right-6 bg-white p-4 rounded-lg shadow-lg hidden md:block"
+            >
+              <div class="flex items-center">
+                <div class="bg-yellow-400 p-2 rounded-full mr-3">
+                  <i class="fas fa-star text-white"></i>
+                </div>
+                <div>
+                  <p class="font-bold text-gray-800">4.8/5 Rating</p>
+                  <p class="text-sm text-gray-600">From 10,000+ readers</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </section>
 
     <!-- Featured Books -->
     <section id="books" class="py-16 bg-white">
-        <div class="container mx-auto px-4">
-            <div class="flex justify-between items-center mb-10">
-                <h2 class="text-3xl font-bold text-gray-800">Featured Books</h2>
-                <a href="#" class="text-blue-600 hover:underline flex items-center">
-                    View All <i class="fas fa-arrow-right ml-2"></i>
-                </a>
-            </div>
-            
-            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
-                <!-- Book Card 1 -->
-                <div class="book-card bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg smooth-transition">
-                    <div class="blur-load h-48" style="background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyMDAiIGhlaWdodD0iMzAwIiB2aWV3Qm94PSIwIDAgMjAwIDMwMCI+PHJlY3Qgd2lkdGg9IjIwMCIgaGVpZ2h0PSIzMDAiIGZpbGw9IiNlNWU1ZTUiLz48L3N2Zz4=')">
-                        <img src="https://images.unsplash.com/photo-1544947950-fa07a98d237f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=200&q=80" 
-                             alt="Book Cover" 
-                             class="w-full h-full object-cover"
-                             loading="lazy">
-                    </div>
-                    <div class="p-4">
-                        <h3 class="font-bold text-lg mb-1">The Silent Patient</h3>
-                        <p class="text-gray-600 text-sm mb-2">Alex Michaelides</p>
-                        <div class="flex items-center mb-3">
-                            <div class="flex text-yellow-400">
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star-half-alt"></i>
-                            </div>
-                            <span class="text-gray-600 text-sm ml-2">4.5</span>
-                        </div>
-                        <div class="flex justify-between items-center">
-                            <span class="text-blue-600 font-medium">Available</span>
-                            <button class="bg-blue-100 text-blue-600 px-3 py-1 rounded-full text-sm hover:bg-blue-200">
-                                <i class="fas fa-plus mr-1"></i> Add
-                            </button>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Book Card 2 -->
-                <div class="book-card bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg smooth-transition">
-                    <div class="blur-load h-48" style="background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyMDAiIGhlaWdodD0iMzAwIiB2aWV3Qm94PSIwIDAgMjAwIDMwMCI+PHJlY3Qgd2lkdGg9IjIwMCIgaGVpZ2h0PSIzMDAiIGZpbGw9IiNlNWU1ZTUiLz48L3N2Zz4=')">
-                        <img src="https://images.unsplash.com/photo-1589998059171-988d887df646?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=200&q=80" 
-                             alt="Book Cover" 
-                             class="w-full h-full object-cover"
-                             loading="lazy">
-                    </div>
-                    <div class="p-4">
-                        <h3 class="font-bold text-lg mb-1">Educated</h3>
-                        <p class="text-gray-600 text-sm mb-2">Tara Westover</p>
-                        <div class="flex items-center mb-3">
-                            <div class="flex text-yellow-400">
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="far fa-star"></i>
-                            </div>
-                            <span class="text-gray-600 text-sm ml-2">4.0</span>
-                        </div>
-                        <div class="flex justify-between items-center">
-                            <span class="text-blue-600 font-medium">Available</span>
-                            <button class="bg-blue-100 text-blue-600 px-3 py-1 rounded-full text-sm hover:bg-blue-200">
-                                <i class="fas fa-plus mr-1"></i> Add
-                            </button>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Book Card 3 -->
-                <div class="book-card bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg smooth-transition">
-                    <div class="blur-load h-48" style="background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyMDAiIGhlaWdodD0iMzAwIiB2aWV3Qm94PSIwIDAgMjAwIDMwMCI+PHJlY3Qgd2lkdGg9IjIwMCIgaGVpZ2h0PSIzMDAiIGZpbGw9IiNlNWU1ZTUiLz48L3N2Zz4=')">
-                        <img src="https://images.unsplash.com/photo-1541963463532-d68292c34b19?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=200&q=80" 
-                             alt="Book Cover" 
-                             class="w-full h-full object-cover"
-                             loading="lazy">
-                    </div>
-                    <div class="p-4">
-                        <h3 class="font-bold text-lg mb-1">To Kill a Mockingbird</h3>
-                        <p class="text-gray-600 text-sm mb-2">Harper Lee</p>
-                        <div class="flex items-center mb-3">
-                            <div class="flex text-yellow-400">
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                            </div>
-                            <span class="text-gray-600 text-sm ml-2">5.0</span>
-                        </div>
-                        <div class="flex justify-between items-center">
-                            <span class="text-red-500 font-medium">Borrowed</span>
-                            <button class="bg-gray-100 text-gray-600 px-3 py-1 rounded-full text-sm cursor-not-allowed" disabled>
-                                Unavailable
-                            </button>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Book Card 4 -->
-                <div class="book-card bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg smooth-transition">
-                    <div class="blur-load h-48" style="background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyMDAiIGhlaWdodD0iMzAwIiB2aWV3Qm94PSIwIDAgMjAwIDMwMCI+PHJlY3Qgd2lkdGg9IjIwMCIgaGVpZ2h0PSIzMDAiIGZpbGw9IiNlNWU1ZTUiLz48L3N2Zz4=')">
-                        <img src="https://images.unsplash.com/photo-1531346878377-a5be20888e57?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=200&q=80" 
-                             alt="Book Cover" 
-                             class="w-full h-full object-cover"
-                             loading="lazy">
-                    </div>
-                    <div class="p-4">
-                        <h3 class="font-bold text-lg mb-1">Atomic Habits</h3>
-                        <p class="text-gray-600 text-sm mb-2">James Clear</p>
-                        <div class="flex items-center mb-3">
-                            <div class="flex text-yellow-400">
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                            </div>
-                            <span class="text-gray-600 text-sm ml-2">4.9</span>
-                        </div>
-                        <div class="flex justify-between items-center">
-                            <span class="text-blue-600 font-medium">Available</span>
-                            <button class="bg-blue-100 text-blue-600 px-3 py-1 rounded-full text-sm hover:bg-blue-200">
-                                <i class="fas fa-plus mr-1"></i> Add
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
+      <div class="container mx-auto px-4">
+        <div class="flex justify-between items-center mb-10">
+          <h2 class="text-3xl font-bold text-gray-800">New Books</h2>
+          <a href="#" class="text-blue-600 hover:underline flex items-center">
+            View All <i class="fas fa-arrow-right ml-2"></i>
+          </a>
         </div>
-    </section>
 
-    <!-- Categories -->
-    <section id="categories" class="py-16 bg-gray-50">
-        <div class="container mx-auto px-4">
-            <h2 class="text-3xl font-bold text-center text-gray-800 mb-12">Browse by Category</h2>
-            
-            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
-                <div class="category-chip bg-white rounded-full py-3 px-6 text-center shadow-sm cursor-pointer smooth-transition">
-                    <i class="fas fa-book text-blue-600 mb-1"></i>
-                    <span class="text-sm font-medium">Fiction</span>
-                </div>
-                <div class="category-chip bg-white rounded-full py-3 px-6 text-center shadow-sm cursor-pointer smooth-transition">
-                    <i class="fas fa-flask text-blue-600 mb-1"></i>
-                    <span class="text-sm font-medium">Science</span>
-                </div>
-                <div class="category-chip bg-white rounded-full py-3 px-6 text-center shadow-sm cursor-pointer smooth-transition">
-                    <i class="fas fa-landmark text-blue-600 mb-1"></i>
-                    <span class="text-sm font-medium">History</span>
-                </div>
-                <div class="category-chip bg-white rounded-full py-3 px-6 text-center shadow-sm cursor-pointer smooth-transition">
-                    <i class="fas fa-heart text-blue-600 mb-1"></i>
-                    <span class="text-sm font-medium">Romance</span>
-                </div>
-                <div class="category-chip bg-white rounded-full py-3 px-6 text-center shadow-sm cursor-pointer smooth-transition">
-                    <i class="fas fa-ghost text-blue-600 mb-1"></i>
-                    <span class="text-sm font-medium">Horror</span>
-                </div>
-                <div class="category-chip bg-white rounded-full py-3 px-6 text-center shadow-sm cursor-pointer smooth-transition">
-                    <i class="fas fa-chart-line text-blue-600 mb-1"></i>
-                    <span class="text-sm font-medium">Business</span>
-                </div>
-                <div class="category-chip bg-white rounded-full py-3 px-6 text-center shadow-sm cursor-pointer smooth-transition">
-                    <i class="fas fa-child text-blue-600 mb-1"></i>
-                    <span class="text-sm font-medium">Children</span>
-                </div>
-                <div class="category-chip bg-white rounded-full py-3 px-6 text-center shadow-sm cursor-pointer smooth-transition">
-                    <i class="fas fa-laptop-code text-blue-600 mb-1"></i>
-                    <span class="text-sm font-medium">Technology</span>
-                </div>
-                <div class="category-chip bg-white rounded-full py-3 px-6 text-center shadow-sm cursor-pointer smooth-transition">
-                    <i class="fas fa-theater-masks text-blue-600 mb-1"></i>
-                    <span class="text-sm font-medium">Drama</span>
-                </div>
-                <div class="category-chip bg-white rounded-full py-3 px-6 text-center shadow-sm cursor-pointer smooth-transition">
-                    <i class="fas fa-globe-americas text-blue-600 mb-1"></i>
-                    <span class="text-sm font-medium">Travel</span>
-                </div>
-                <div class="category-chip bg-white rounded-full py-3 px-6 text-center shadow-sm cursor-pointer smooth-transition">
-                    <i class="fas fa-utensils text-blue-600 mb-1"></i>
-                    <span class="text-sm font-medium">Food</span>
-                </div>
-                <div class="category-chip bg-white rounded-full py-3 px-6 text-center shadow-sm cursor-pointer smooth-transition">
-                    <i class="fas fa-eye text-blue-600 mb-1"></i>
-                    <span class="text-sm font-medium">View All</span>
-                </div>
+        <div
+          class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8"
+        >
+          <!-- Book Card 1 -->
+          <div
+            class="book-card bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg smooth-transition"
+          >
+            <div
+              class="blur-load h-48"
+              style="
+                background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyMDAiIGhlaWdodD0iMzAwIiB2aWV3Qm94PSIwIDAgMjAwIDMwMCI+PHJlY3Qgd2lkdGg9IjIwMCIgaGVpZ2h0PSIzMDAiIGZpbGw9IiNlNWU1ZTUiLz48L3N2Zz4=');
+              "
+            >
+              <img
+                src="https://images.unsplash.com/photo-1544947950-fa07a98d237f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=200&q=80"
+                alt="Book Cover"
+                class="w-full h-full object-cover"
+                loading="lazy"
+              />
             </div>
-        </div>
-    </section>
-
-    <!-- How It Works -->
-    <section class="py-16 bg-white">
-        <div class="container mx-auto px-4">
-            <h2 class="text-3xl font-bold text-center text-gray-800 mb-12">How It Works</h2>
-            
-            <div class="grid md:grid-cols-3 gap-8">
-                <div class="text-center px-6">
-                    <div class="bg-blue-100 w-16 h-16 mx-auto rounded-full flex items-center justify-center mb-4">
-                        <i class="fas fa-search text-blue-600 text-2xl"></i>
-                    </div>
-                    <h3 class="text-xl font-semibold mb-2">Find Your Book</h3>
-                    <p class="text-gray-600">Browse our extensive collection or use our powerful search to find exactly what you're looking for.</p>
+            <div class="p-4">
+              <h3 class="font-bold text-lg mb-1">The Silent Patient</h3>
+              <p class="text-gray-600 text-sm mb-2">Alex Michaelides</p>
+              <div class="flex items-center mb-3">
+                <div class="flex text-yellow-400">
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star-half-alt"></i>
                 </div>
-                <div class="text-center px-6">
-                    <div class="bg-blue-100 w-16 h-16 mx-auto rounded-full flex items-center justify-center mb-4">
-                        <i class="fas fa-bookmark text-blue-600 text-2xl"></i>
-                    </div>
-                    <h3 class="text-xl font-semibold mb-2">Reserve or Borrow</h3>
-                    <p class="text-gray-600">Reserve books online or borrow them instantly if they're available at your local library.</p>
-                </div>
-                <div class="text-center px-6">
-                    <div class="bg-blue-100 w-16 h-16 mx-auto rounded-full flex items-center justify-center mb-4">
-                        <i class="fas fa-book-reader text-blue-600 text-2xl"></i>
-                    </div>
-                    <h3 class="text-xl font-semibold mb-2">Enjoy Reading</h3>
-                    <p class="text-gray-600">Pick up your books or read them online. Return them on time to avoid late fees.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Testimonials -->
-    <section class="py-16 bg-gray-50">
-        <div class="container mx-auto px-4">
-            <h2 class="text-3xl font-bold text-center text-gray-800 mb-12">What Our Readers Say</h2>
-            
-            <div class="grid md:grid-cols-2 gap-8">
-                <div class="bg-white p-8 rounded-lg shadow-md">
-                    <div class="flex items-center mb-4">
-                        <div class="flex text-yellow-400 mr-2">
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                        </div>
-                        <span class="text-gray-600 text-sm">5.0</span>
-                    </div>
-                    <p class="text-gray-700 mb-6">"BookNest has completely transformed my reading habits. The selection is incredible and the reservation system is so convenient. I've discovered so many new authors I love!"</p>
-                    <div class="flex items-center">
-                        <img src="https://randomuser.me/api/portraits/women/43.jpg" alt="User" class="w-10 h-10 rounded-full mr-3">
-                        <div>
-                            <h4 class="font-medium">Sarah Johnson</h4>
-                            <p class="text-gray-600 text-sm">Avid Reader</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="bg-white p-8 rounded-lg shadow-md">
-                    <div class="flex items-center mb-4">
-                        <div class="flex text-yellow-400 mr-2">
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star-half-alt"></i>
-                        </div>
-                        <span class="text-gray-600 text-sm">4.5</span>
-                    </div>
-                    <p class="text-gray-700 mb-6">"As a student, BookNest has been invaluable for accessing textbooks and research materials. The online resources have saved me so much money compared to buying books."</p>
-                    <div class="flex items-center">
-                        <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="User" class="w-10 h-10 rounded-full mr-3">
-                        <div>
-                            <h4 class="font-medium">Michael Chen</h4>
-                            <p class="text-gray-600 text-sm">University Student</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Newsletter -->
-    <section class="py-16 bg-blue-600 text-white">
-        <div class="container mx-auto px-4 text-center">
-            <h2 class="text-3xl font-bold mb-4">Stay Updated</h2>
-            <p class="text-lg mb-8 max-w-2xl mx-auto">Subscribe to our newsletter to receive updates on new arrivals, special events, and reading recommendations.</p>
-            
-            <div class="max-w-md mx-auto flex">
-                <input type="email" placeholder="Your email address" 
-                       class="flex-grow px-4 py-3 rounded-l-md focus:outline-none text-gray-800">
-                <button class="bg-blue-800 px-6 py-3 rounded-r-md font-medium hover:bg-blue-900 transition">
-                    Subscribe
+                <span class="text-gray-600 text-sm ml-2">4.5</span>
+              </div>
+              <div class="flex justify-between items-center">
+                <span class="text-blue-600 font-medium">Available</span>
+                <button
+                  class="bg-blue-100 text-blue-600 px-3 py-1 rounded-full text-sm hover:bg-blue-200"
+                >
+                  <i class="fas fa-plus mr-1"></i> Add
                 </button>
+              </div>
             </div>
+          </div>
+
+          <!-- Book Card 2 -->
+          <div
+            class="book-card bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg smooth-transition"
+          >
+            <div
+              class="blur-load h-48"
+              style="
+                background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyMDAiIGhlaWdodD0iMzAwIiB2aWV3Qm94PSIwIDAgMjAwIDMwMCI+PHJlY3Qgd2lkdGg9IjIwMCIgaGVpZ2h0PSIzMDAiIGZpbGw9IiNlNWU1ZTUiLz48L3N2Zz4=');
+              "
+            >
+              <img
+                src="https://images.unsplash.com/photo-1589998059171-988d887df646?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=200&q=80"
+                alt="Book Cover"
+                class="w-full h-full object-cover"
+                loading="lazy"
+              />
+            </div>
+            <div class="p-4">
+              <h3 class="font-bold text-lg mb-1">Educated</h3>
+              <p class="text-gray-600 text-sm mb-2">Tara Westover</p>
+              <div class="flex items-center mb-3">
+                <div class="flex text-yellow-400">
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="far fa-star"></i>
+                </div>
+                <span class="text-gray-600 text-sm ml-2">4.0</span>
+              </div>
+              <div class="flex justify-between items-center">
+                <span class="text-blue-600 font-medium">Available</span>
+                <button
+                  class="bg-blue-100 text-blue-600 px-3 py-1 rounded-full text-sm hover:bg-blue-200"
+                >
+                  <i class="fas fa-plus mr-1"></i> Add
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Book Card 3 -->
+          <div
+            class="book-card bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg smooth-transition"
+          >
+            <div
+              class="blur-load h-48"
+              style="
+                background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyMDAiIGhlaWdodD0iMzAwIiB2aWV3Qm94PSIwIDAgMjAwIDMwMCI+PHJlY3Qgd2lkdGg9IjIwMCIgaGVpZ2h0PSIzMDAiIGZpbGw9IiNlNWU1ZTUiLz48L3N2Zz4=');
+              "
+            >
+              <img
+                src="https://images.unsplash.com/photo-1541963463532-d68292c34b19?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=200&q=80"
+                alt="Book Cover"
+                class="w-full h-full object-cover"
+                loading="lazy"
+              />
+            </div>
+            <div class="p-4">
+              <h3 class="font-bold text-lg mb-1">To Kill a Mockingbird</h3>
+              <p class="text-gray-600 text-sm mb-2">Harper Lee</p>
+              <div class="flex items-center mb-3">
+                <div class="flex text-yellow-400">
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                </div>
+                <span class="text-gray-600 text-sm ml-2">5.0</span>
+              </div>
+              <div class="flex justify-between items-center">
+                <span class="text-red-500 font-medium">Borrowed</span>
+                <button
+                  class="bg-gray-100 text-gray-600 px-3 py-1 rounded-full text-sm cursor-not-allowed"
+                  disabled
+                >
+                  Unavailable
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Book Card 4 -->
+          <div
+            class="book-card bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg smooth-transition"
+          >
+            <div
+              class="blur-load h-48"
+              style="
+                background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyMDAiIGhlaWdodD0iMzAwIiB2aWV3Qm94PSIwIDAgMjAwIDMwMCI+PHJlY3Qgd2lkdGg9IjIwMCIgaGVpZ2h0PSIzMDAiIGZpbGw9IiNlNWU1ZTUiLz48L3N2Zz4=');
+              "
+            >
+              <img
+                src="https://images.unsplash.com/photo-1531346878377-a5be20888e57?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=200&q=80"
+                alt="Book Cover"
+                class="w-full h-full object-cover"
+                loading="lazy"
+              />
+            </div>
+            <div class="p-4">
+              <h3 class="font-bold text-lg mb-1">Atomic Habits</h3>
+              <p class="text-gray-600 text-sm mb-2">James Clear</p>
+              <div class="flex items-center mb-3">
+                <div class="flex text-yellow-400">
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                </div>
+                <span class="text-gray-600 text-sm ml-2">4.9</span>
+              </div>
+              <div class="flex justify-between items-center">
+                <span class="text-blue-600 font-medium">Available</span>
+                <button
+                  class="bg-blue-100 text-blue-600 px-3 py-1 rounded-full text-sm hover:bg-blue-200"
+                >
+                  <i class="fas fa-plus mr-1"></i> Add
+                </button>
+              </div>
+            </div>
+          </div>
         </div>
+      </div>
     </section>
 
     <!-- Footer -->
     <footer class="bg-gray-800 text-white py-12">
-        <div class="container mx-auto px-4">
-            <div class="grid md:grid-cols-4 gap-8">
-                <div>
-                    <div class="flex items-center space-x-2 mb-4">
-                        <i class="fas fa-book-open text-blue-400 text-2xl"></i>
-                        <span class="text-xl font-bold">BookNest</span>
-                    </div>
-                    <p class="text-gray-400 mb-4">Your gateway to a world of knowledge and imagination.</p>
-                    <div class="flex space-x-4">
-                        <a href="#" class="text-gray-400 hover:text-white">
-                            <i class="fab fa-facebook-f"></i>
-                        </a>
-                        <a href="#" class="text-gray-400 hover:text-white">
-                            <i class="fab fa-twitter"></i>
-                        </a>
-                        <a href="#" class="text-gray-400 hover:text-white">
-                            <i class="fab fa-instagram"></i>
-                        </a>
-                        <a href="#" class="text-gray-400 hover:text-white">
-                            <i class="fab fa-linkedin-in"></i>
-                        </a>
-                    </div>
-                </div>
-                <div>
-                    <h3 class="text-lg font-semibold mb-4">Quick Links</h3>
-                    <ul class="space-y-2">
-                        <li><a href="#" class="text-gray-400 hover:text-white">Home</a></li>
-                        <li><a href="#books" class="text-gray-400 hover:text-white">Books</a></li>
-                        <li><a href="#categories" class="text-gray-400 hover:text-white">Categories</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-white">My Account</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-white">Wishlist</a></li>
-                    </ul>
-                </div>
-                <div>
-                    <h3 class="text-lg font-semibold mb-4">Help</h3>
-                    <ul class="space-y-2">
-                        <li><a href="#" class="text-gray-400 hover:text-white">FAQs</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-white">Shipping</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-white">Returns</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-white">Privacy Policy</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-white">Terms & Conditions</a></li>
-                    </ul>
-                </div>
-                <div>
-                    <h3 class="text-lg font-semibold mb-4">Contact Us</h3>
-                    <ul class="space-y-2 text-gray-400">
-                        <li class="flex items-start">
-                            <i class="fas fa-map-marker-alt mt-1 mr-3 text-blue-400"></i>
-                            <span>123 Library Street, Bookville, BV 12345</span>
-                        </li>
-                        <li class="flex items-center">
-                            <i class="fas fa-phone-alt mr-3 text-blue-400"></i>
-                            <span>(123) 456-7890</span>
-                        </li>
-                        <li class="flex items-center">
-                            <i class="fas fa-envelope mr-3 text-blue-400"></i>
-                            <span>info@booknest.com</span>
-                        </li>
-                    </ul>
-                </div>
+      <div class="container mx-auto px-4">
+        <div class="grid md:grid-cols-4 gap-8">
+          <div>
+            <div class="flex items-center space-x-2 mb-4">
+              <i class="fas fa-book-open text-blue-400 text-2xl"></i>
+              <span class="text-xl font-bold">BookNest</span>
             </div>
-            <div class="border-t border-gray-700 mt-12 pt-8 text-center text-gray-400">
-                <p>&copy; 2023 BookNest. All rights reserved.</p>
+            <p class="text-gray-400 mb-4">
+              Your gateway to a world of knowledge and imagination.
+            </p>
+            <div class="flex space-x-4">
+              <a href="#" class="text-gray-400 hover:text-white">
+                <i class="fab fa-facebook-f"></i>
+              </a>
+              <a href="#" class="text-gray-400 hover:text-white">
+                <i class="fab fa-twitter"></i>
+              </a>
+              <a href="#" class="text-gray-400 hover:text-white">
+                <i class="fab fa-instagram"></i>
+              </a>
+              <a href="#" class="text-gray-400 hover:text-white">
+                <i class="fab fa-linkedin-in"></i>
+              </a>
             </div>
+          </div>
+          <div>
+            <h3 class="text-lg font-semibold mb-4">Quick Links</h3>
+            <ul class="space-y-2">
+              <li>
+                <a href="#" class="text-gray-400 hover:text-white">Home</a>
+              </li>
+              <li>
+                <a href="#books" class="text-gray-400 hover:text-white"
+                  >Books</a
+                >
+              </li>
+              <li>
+                <a href="#categories" class="text-gray-400 hover:text-white"
+                  >Categories</a
+                >
+              </li>
+              <li>
+                <a href="#" class="text-gray-400 hover:text-white"
+                  >My Account</a
+                >
+              </li>
+              <li>
+                <a href="#" class="text-gray-400 hover:text-white">Wishlist</a>
+              </li>
+            </ul>
+          </div>
+          <div>
+            <h3 class="text-lg font-semibold mb-4">Help</h3>
+            <ul class="space-y-2">
+              <li>
+                <a href="#" class="text-gray-400 hover:text-white">FAQs</a>
+              </li>
+              <li>
+                <a href="#" class="text-gray-400 hover:text-white">Shipping</a>
+              </li>
+              <li>
+                <a href="#" class="text-gray-400 hover:text-white">Returns</a>
+              </li>
+              <li>
+                <a href="#" class="text-gray-400 hover:text-white"
+                  >Privacy Policy</a
+                >
+              </li>
+              <li>
+                <a href="#" class="text-gray-400 hover:text-white"
+                  >Terms & Conditions</a
+                >
+              </li>
+            </ul>
+          </div>
+          <div>
+            <h3 class="text-lg font-semibold mb-4">Contact Us</h3>
+            <ul class="space-y-2 text-gray-400">
+              <li class="flex items-start">
+                <i class="fas fa-map-marker-alt mt-1 mr-3 text-blue-400"></i>
+                <span>123 Library Street, Bookville, BV 12345</span>
+              </li>
+              <li class="flex items-center">
+                <i class="fas fa-phone-alt mr-3 text-blue-400"></i>
+                <span>(123) 456-7890</span>
+              </li>
+              <li class="flex items-center">
+                <i class="fas fa-envelope mr-3 text-blue-400"></i>
+                <span>info@booknest.com</span>
+              </li>
+            </ul>
+          </div>
         </div>
+        <div
+          class="border-t border-gray-700 mt-12 pt-8 text-center text-gray-400"
+        >
+          <p>&copy; 2023 BookNest. All rights reserved.</p>
+        </div>
+      </div>
     </footer>
 
     <!-- Back to Top Button -->
-    <button id="back-to-top" class="fixed bottom-6 right-6 bg-blue-600 text-white p-3 rounded-full shadow-lg opacity-0 invisible transition-all duration-300">
-        <i class="fas fa-arrow-up"></i>
+    <button
+      id="back-to-top"
+      class="fixed bottom-6 right-6 bg-blue-600 text-white p-3 rounded-full shadow-lg opacity-0 invisible transition-all duration-300"
+    >
+      <i class="fas fa-arrow-up"></i>
     </button>
 
     <script>
-        // Mobile Menu Toggle
-        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
-        const mobileMenu = document.getElementById('mobile-menu');
-        
-        mobileMenuBtn.addEventListener('click', () => {
-            mobileMenu.classList.toggle('hidden');
+      // Mobile Menu Toggle
+      const mobileMenuBtn = document.getElementById("mobile-menu-btn");
+      const mobileMenu = document.getElementById("mobile-menu");
+
+      mobileMenuBtn.addEventListener("click", () => {
+        mobileMenu.classList.toggle("hidden");
+      });
+
+      // Search Bar Toggle
+      const searchBtn = document.getElementById("search-btn");
+      const searchBar = document.getElementById("search-bar");
+
+      searchBtn.addEventListener("click", () => {
+        searchBar.classList.toggle("hidden");
+      });
+
+      // Back to Top Button
+      const backToTopBtn = document.getElementById("back-to-top");
+
+      window.addEventListener("scroll", () => {
+        if (window.pageYOffset > 300) {
+          backToTopBtn.classList.remove("opacity-0", "invisible");
+          backToTopBtn.classList.add("opacity-100", "visible");
+        } else {
+          backToTopBtn.classList.remove("opacity-100", "visible");
+          backToTopBtn.classList.add("opacity-0", "invisible");
+        }
+      });
+
+      backToTopBtn.addEventListener("click", () => {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      });
+
+      // Category Chips
+      const categoryChips = document.querySelectorAll(".category-chip");
+      categoryChips.forEach((chip) => {
+        chip.addEventListener("click", () => {
+          // Remove active class from all chips
+          categoryChips.forEach((c) =>
+            c.classList.remove("bg-blue-600", "text-white")
+          );
+          // Add active class to clicked chip
+          chip.classList.add("bg-blue-600", "text-white");
+          // Here you would typically filter books by category
+          console.log(`Filtering by: ${chip.textContent.trim()}`);
         });
-        
-        // Search Bar Toggle
-        const searchBtn = document.getElementById('search-btn');
-        const searchBar = document.getElementById('search-bar');
-        
-        searchBtn.addEventListener('click', () => {
-            searchBar.classList.toggle('hidden');
+      });
+
+      // Book Add Buttons
+      const addButtons = document.querySelectorAll(
+        ".book-card button:not([disabled])"
+      );
+      addButtons.forEach((button) => {
+        button.addEventListener("click", () => {
+          const bookTitle = button
+            .closest(".book-card")
+            .querySelector("h3").textContent;
+          alert(`Added "${bookTitle}" to your reading list!`);
+
+          // Here you would typically make an API call to add to user's list
+          // fetch('/api/add-to-list', {
+          //     method: 'POST',
+          //     headers: {
+          //         'Content-Type': 'application/json',
+          //     },
+          //     body: JSON.stringify({ bookId: '123' }),
+          // })
+          // .then(response => response.json())
+          // .then(data => {
+          //     console.log('Success:', data);
+          // })
+          // .catch((error) => {
+          //     console.error('Error:', error);
+          // });
         });
-        
-        // Back to Top Button
-        const backToTopBtn = document.getElementById('back-to-top');
-        
-        window.addEventListener('scroll', () => {
-            if (window.pageYOffset > 300) {
-                backToTopBtn.classList.remove('opacity-0', 'invisible');
-                backToTopBtn.classList.add('opacity-100', 'visible');
-            } else {
-                backToTopBtn.classList.remove('opacity-100', 'visible');
-                backToTopBtn.classList.add('opacity-0', 'invisible');
-            }
-        });
-        
-        backToTopBtn.addEventListener('click', () => {
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        });
-        
-        // Category Chips
-        const categoryChips = document.querySelectorAll('.category-chip');
-        categoryChips.forEach(chip => {
-            chip.addEventListener('click', () => {
-                // Remove active class from all chips
-                categoryChips.forEach(c => c.classList.remove('bg-blue-600', 'text-white'));
-                // Add active class to clicked chip
-                chip.classList.add('bg-blue-600', 'text-white');
-                // Here you would typically filter books by category
-                console.log(`Filtering by: ${chip.textContent.trim()}`);
+      });
+
+      // Image lazy loading enhancement
+      document.addEventListener("DOMContentLoaded", function () {
+        const blurLoadDivs = document.querySelectorAll(".blur-load");
+
+        blurLoadDivs.forEach((div) => {
+          const img = div.querySelector("img");
+
+          if (img.complete) {
+            div.classList.add("loaded");
+          } else {
+            img.addEventListener("load", function () {
+              div.classList.add("loaded");
             });
+          }
         });
-        
-        // Book Add Buttons
-        const addButtons = document.querySelectorAll('.book-card button:not([disabled])');
-        addButtons.forEach(button => {
-            button.addEventListener('click', () => {
-                const bookTitle = button.closest('.book-card').querySelector('h3').textContent;
-                alert(`Added "${bookTitle}" to your reading list!`);
-                
-                // Here you would typically make an API call to add to user's list
-                // fetch('/api/add-to-list', {
-                //     method: 'POST',
-                //     headers: {
-                //         'Content-Type': 'application/json',
-                //     },
-                //     body: JSON.stringify({ bookId: '123' }),
-                // })
-                // .then(response => response.json())
-                // .then(data => {
-                //     console.log('Success:', data);
-                // })
-                // .catch((error) => {
-                //     console.error('Error:', error);
-                // });
-            });
-        });
-        
-        // Image lazy loading enhancement
-        document.addEventListener('DOMContentLoaded', function() {
-            const blurLoadDivs = document.querySelectorAll('.blur-load');
-            
-            blurLoadDivs.forEach(div => {
-                const img = div.querySelector('img');
-                
-                if (img.complete) {
-                    div.classList.add('loaded');
-                } else {
-                    img.addEventListener('load', function() {
-                        div.classList.add('loaded');
-                    });
-                }
-            });
-        });
+      });
     </script>
-</body>
+  </body>
 </html>
